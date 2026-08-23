@@ -1,0 +1,504 @@
+<title>Luna Ultra ウィークリー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700&family=Noto+Sans+JP:wght@400;500&family=IBM+Plex+Mono:wght@400;600&display=swap">
+
+<style>
+  :root{
+    --bg:#EFF1F4;
+    --surface:#FFFFFF;
+    --surface-sunk:#F5F6F9;
+    --ink:#14161B;
+    --ink-soft:#3D434F;
+    --muted:#5E6474;
+    --line:#DCDFE6;
+    --line-strong:#C3C8D2;
+    --accent:#9A6212;
+    --accent-ink:#7A4D0C;
+    --accent-wash:#F3E8D6;
+    --warn:#A63C24;
+    --warn-wash:#F7E4DE;
+    --ok:#1A6455;
+    --shadow:0 1px 2px rgba(20,22,27,.05), 0 8px 24px -16px rgba(20,22,27,.28);
+
+    --f-display:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    --f-body:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#131519;
+      --surface:#1B1E24;
+      --surface-sunk:#171A1F;
+      --ink:#E9EBEF;
+      --ink-soft:#C2C7D1;
+      --muted:#939AA8;
+      --line:#2B2F38;
+      --line-strong:#3A404B;
+      --accent:#D6A254;
+      --accent-ink:#E4B978;
+      --accent-wash:#2E2618;
+      --warn:#E08064;
+      --warn-wash:#33201A;
+      --ok:#5CBBA4;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#131519;
+    --surface:#1B1E24;
+    --surface-sunk:#171A1F;
+    --ink:#E9EBEF;
+    --ink-soft:#C2C7D1;
+    --muted:#939AA8;
+    --line:#2B2F38;
+    --line-strong:#3A404B;
+    --accent:#D6A254;
+    --accent-ink:#E4B978;
+    --accent-wash:#2E2618;
+    --warn:#E08064;
+    --warn-wash:#33201A;
+    --ok:#5CBBA4;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--f-body);
+    font-size:15px;
+    line-height:1.75;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{
+    max-width:41rem;
+    margin:0 auto;
+    padding:clamp(1.25rem,4vw,2.75rem) clamp(1rem,4vw,1.75rem) 4rem;
+    display:flex;
+    flex-direction:column;
+    gap:1.75rem;
+  }
+
+  /* ---- masthead ---- */
+  .mast{display:flex;flex-direction:column;gap:.65rem}
+  .kicker{
+    font-family:var(--f-mono);
+    font-size:.6875rem;
+    font-weight:600;
+    letter-spacing:.14em;
+    color:var(--accent);
+  }
+  h1{
+    font-family:var(--f-display);
+    font-weight:700;
+    font-size:clamp(1.6rem,6vw,2.1rem);
+    line-height:1.25;
+    letter-spacing:.01em;
+    margin:0;
+    text-wrap:balance;
+  }
+  .dek{margin:0;color:var(--muted);font-size:.875rem;line-height:1.6}
+
+  /* ---- status strip: the camera info bar ---- */
+  .strip{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .cell{
+    padding:.7rem .85rem;
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:.15rem;
+    min-width:0;
+  }
+  .cell:last-child{border-right:0}
+  .cell dt{
+    font-family:var(--f-mono);
+    font-size:.625rem;
+    letter-spacing:.1em;
+    color:var(--muted);
+    margin:0;
+  }
+  .cell dd{
+    margin:0;
+    font-family:var(--f-mono);
+    font-weight:600;
+    font-size:.9375rem;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+    overflow-wrap:anywhere;
+  }
+  .cell dd small{
+    display:block;
+    font-family:var(--f-body);
+    font-weight:400;
+    font-size:.6875rem;
+    color:var(--muted);
+    letter-spacing:0;
+  }
+  .cell dd.is-accent{color:var(--accent-ink)}
+  .cell dd.is-warn{color:var(--warn)}
+
+  /* ---- degraded banner ---- */
+  .banner{
+    display:flex;
+    gap:.6rem;
+    padding:.8rem .95rem;
+    background:var(--warn-wash);
+    border-left:3px solid var(--warn);
+    border-radius:0 2px 2px 0;
+    font-size:.8125rem;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .banner b{color:var(--warn);font-weight:700}
+
+  /* ---- sections ---- */
+  main{display:flex;flex-direction:column;gap:1.6rem}
+  section{display:flex;flex-direction:column;gap:.7rem}
+  .head{
+    display:flex;
+    align-items:baseline;
+    gap:.6rem;
+    padding-bottom:.45rem;
+    border-bottom:1px solid var(--line-strong);
+  }
+  .head .key{
+    font-family:var(--f-mono);
+    font-size:.625rem;
+    font-weight:600;
+    letter-spacing:.12em;
+    color:var(--accent);
+    flex:none;
+  }
+  .head h2{
+    font-family:var(--f-display);
+    font-weight:700;
+    font-size:1rem;
+    margin:0;
+    flex:1 1 auto;
+    letter-spacing:.01em;
+  }
+  .head .n{
+    font-family:var(--f-mono);
+    font-size:.75rem;
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+    flex:none;
+  }
+
+  .items{display:flex;flex-direction:column;gap:.6rem}
+  .item{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:.85rem .95rem;
+    display:flex;
+    flex-direction:column;
+    gap:.45rem;
+    box-shadow:var(--shadow);
+  }
+  .item h3{
+    font-family:var(--f-display);
+    font-weight:700;
+    font-size:.9375rem;
+    line-height:1.5;
+    margin:0;
+    text-wrap:balance;
+  }
+  .item p{margin:0;font-size:.875rem;color:var(--ink-soft)}
+  .caveat{
+    font-size:.75rem;
+    color:var(--muted);
+    padding-left:.6rem;
+    border-left:2px solid var(--line-strong);
+  }
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:.5rem;
+    padding-top:.15rem;
+  }
+  .meta a{
+    font-size:.75rem;
+    color:var(--accent-ink);
+    text-decoration:none;
+    border-bottom:1px solid var(--accent-wash);
+    overflow-wrap:anywhere;
+  }
+  .meta a:hover,.meta a:focus-visible{border-bottom-color:var(--accent)}
+  .meta time{
+    font-family:var(--f-mono);
+    font-size:.6875rem;
+    color:var(--muted);
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* confidence chips — encoded in form, not hue alone */
+  .grade{
+    font-family:var(--f-mono);
+    font-size:.625rem;
+    font-weight:600;
+    letter-spacing:.06em;
+    padding:.12rem .45rem;
+    border-radius:2px;
+    flex:none;
+    white-space:nowrap;
+  }
+  .grade-A{background:var(--ok);color:var(--surface);border:1px solid var(--ok)}
+  .grade-B{background:transparent;color:var(--ink-soft);border:1px solid var(--line-strong)}
+  .grade-C{background:transparent;color:var(--muted);border:1px dashed var(--line-strong)}
+
+  .empty{
+    font-size:.8125rem;
+    color:var(--muted);
+    padding:.7rem .95rem;
+    background:var(--surface-sunk);
+    border:1px dashed var(--line-strong);
+    border-radius:2px;
+  }
+
+  /* ---- footer notes ---- */
+  .notes{
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+    padding-top:1.25rem;
+    border-top:1px solid var(--line-strong);
+  }
+  .note h4{
+    font-family:var(--f-mono);
+    font-size:.6875rem;
+    font-weight:600;
+    letter-spacing:.1em;
+    color:var(--muted);
+    margin:0 0 .35rem;
+  }
+  .note ul{margin:0;padding-left:1.1rem;font-size:.8125rem;color:var(--ink-soft)}
+  .note li{margin-bottom:.2rem}
+  .note p{margin:0;font-size:.8125rem;color:var(--ink-soft)}
+  .foot{
+    font-size:.75rem;
+    color:var(--muted);
+    line-height:1.7;
+  }
+  .foot a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid var(--accent-wash)}
+  .foot a:hover,.foot a:focus-visible{border-bottom-color:var(--accent)}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="kicker">INSTA360 LUNA ULTRA</div>
+    <h1 id="headline">今週のTIPS</h1>
+    <p class="dek">撮影テクニック・アクセサリ・設定を毎週水曜にまとめています。各項目の信頼度は <b>A</b>=公式 / <b>B</b>=実機検証・第三者集約 / <b>C</b>=未検証。</p>
+  </header>
+
+  <dl class="strip" id="strip"></dl>
+  <div id="bannerSlot"></div>
+  <main id="sections"></main>
+  <div class="notes" id="notes"></div>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script type="application/json" id="report">
+{
+  "date": "2026-08-20",
+  "degraded": false,
+  "headline": "初号 — 検証済みの基礎情報",
+  "firmware": { "version": "v1.0.288", "released": "2026-07-24" },
+  "sections": [
+    {
+      "key": "TECHNIQUE",
+      "label": "撮影テクニック",
+      "items": []
+    },
+    {
+      "key": "GEAR",
+      "label": "ガジェット・アクセサリ",
+      "items": [
+        {
+          "title": "「Luna」と「Luna Ultra」は別機種 — アクセサリ選びの前に型番を確認する",
+          "body": "Luna シリーズは Luna Ultra と標準モデル Luna の2機種構成で、Ultra が先行発売された。センサー・レンズ構成が異なるため、レビュー記事やアクセサリ紹介がどちらを指しているか確認しないと互換性を誤る。",
+          "grade": "B",
+          "source": "https://www.insta360.com/blog/insta360-launches-luna-series-gimbal-cameras-Leica.html",
+          "source_name": "Insta360 公式ブログ",
+          "published": "2026-06"
+        }
+      ]
+    },
+    {
+      "key": "SETTINGS",
+      "label": "設定・編集",
+      "items": []
+    },
+    {
+      "key": "ISSUES",
+      "label": "既知の不具合と回避策",
+      "items": []
+    },
+    {
+      "key": "TOPICS",
+      "label": "今週のトピック",
+      "items": [
+        {
+          "title": "ファームウェアは v1.0.288（2026-07-24）が最新",
+          "body": "公開日順に v1.0.47（2026-06-18）→ v1.0.283（2026-07-18）→ v1.0.288（2026-07-24）。最新版は「スマホ接続の安定性向上」「システム全体の安定性と性能の改善」。枝番が飛ぶのは付番の仕様で、他機種の混入ではない。",
+          "body_extra": "公式ダウンロードページはクライアントサイドレンダリングのため、静的HTMLに本体版数が含まれない。版数の追跡は第三者の集約サイトを一次経路とする。",
+          "grade": "B",
+          "source": "https://www.gearpulse.se/insta360/insta360-luna-ultra",
+          "source_name": "GearPulse",
+          "published": "2026-07-24"
+        }
+      ]
+    }
+  ],
+  "missing": [
+    "撮影テクニック — 初号のため未収集",
+    "設定・編集 — 初号のため未収集",
+    "既知の不具合と回避策 — 初号のため未収集"
+  ],
+  "corrections": [],
+  "revisit_count": 0,
+  "archive_url": "https://github.com/ymnucsnb-hash/ymnucsnb1975/tree/main/docs/luna-ultra"
+}
+</script>
+
+<script>
+(function () {
+  var d;
+  try {
+    d = JSON.parse(document.getElementById("report").textContent);
+  } catch (e) {
+    document.getElementById("sections").innerHTML =
+      '<div class="empty">レポートデータを読み込めませんでした。</div>';
+    return;
+  }
+
+  var el = function (tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  };
+
+  if (d.headline) document.getElementById("headline").textContent = d.headline;
+
+  /* --- status strip --- */
+  var fw = d.firmware || {};
+  var cells = [
+    { k: "ISSUE", v: d.date || "—", s: "発行日" },
+    { k: "FIRMWARE", v: fw.version || "未確定", s: fw.released ? fw.released + " 公開" : "公開日不明", accent: true },
+    {
+      k: "ITEMS",
+      v: String((d.sections || []).reduce(function (n, s) { return n + (s.items || []).length; }, 0)),
+      s: "今週の掲載件数"
+    },
+    { k: "MODE", v: d.degraded ? "縮退" : "通常", s: d.degraded ? "本文未検証" : "本文検証済み", warn: !!d.degraded }
+  ];
+  var strip = document.getElementById("strip");
+  cells.forEach(function (c) {
+    var wrap = el("div", "cell");
+    wrap.appendChild(el("dt", null, c.k));
+    var dd = el("dd", c.warn ? "is-warn" : c.accent ? "is-accent" : null, c.v);
+    if (c.s) dd.appendChild(el("small", null, c.s));
+    wrap.appendChild(dd);
+    strip.appendChild(wrap);
+  });
+
+  /* --- degraded banner --- */
+  if (d.degraded) {
+    var b = el("div", "banner");
+    var strong = el("b", null, "縮退モードで生成。");
+    b.appendChild(strong);
+    b.appendChild(document.createTextNode(
+      "実行環境から外部サイトへ接続できなかったため、検索結果のスニペットのみで作成しています。" +
+      "全項目が本文未検証（C）です。接続が回復した週に優先して取材し直します。"
+    ));
+    document.getElementById("bannerSlot").appendChild(b);
+  }
+
+  /* --- sections --- */
+  var host = document.getElementById("sections");
+  (d.sections || []).forEach(function (s) {
+    var sec = el("section");
+    var head = el("div", "head");
+    head.appendChild(el("span", "key", s.key || ""));
+    head.appendChild(el("h2", null, s.label || ""));
+    var items = s.items || [];
+    head.appendChild(el("span", "n", items.length ? items.length + "件" : "—"));
+    sec.appendChild(head);
+
+    if (!items.length) {
+      sec.appendChild(el("div", "empty", "今週は該当なし。"));
+    } else {
+      var list = el("div", "items");
+      items.forEach(function (it) {
+        var card = el("article", "item");
+        card.appendChild(el("h3", null, it.title || ""));
+        if (it.body) card.appendChild(el("p", null, it.body));
+        if (it.body_extra) card.appendChild(el("p", "caveat", it.body_extra));
+
+        var meta = el("div", "meta");
+        var g = (it.grade || "C").toUpperCase();
+        var gradeText = { A: "A 公式", B: "B 実機・集約", C: "C 未検証" }[g] || "C 未検証";
+        meta.appendChild(el("span", "grade grade-" + (g === "A" || g === "B" ? g : "C"), gradeText));
+        if (it.source) {
+          var a = el("a", null, it.source_name || it.source);
+          a.href = it.source;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          meta.appendChild(a);
+        }
+        if (it.published) meta.appendChild(el("time", null, it.published));
+        card.appendChild(meta);
+        list.appendChild(card);
+      });
+      sec.appendChild(list);
+    }
+    host.appendChild(sec);
+  });
+
+  /* --- notes --- */
+  var notes = document.getElementById("notes");
+  var addList = function (title, arr) {
+    if (!arr || !arr.length) return;
+    var n = el("div", "note");
+    n.appendChild(el("h4", null, title));
+    var ul = el("ul");
+    arr.forEach(function (t) { ul.appendChild(el("li", null, t)); });
+    n.appendChild(ul);
+    notes.appendChild(n);
+  };
+  addList("新規情報が得られなかったセクション", d.missing);
+  addList("前提情報の訂正", d.corrections);
+  if (d.revisit_count) {
+    var r = el("div", "note");
+    r.appendChild(el("h4", null, "再取材候補"));
+    r.appendChild(el("p", null, "未検証のまま持ち越している項目が " + d.revisit_count + " 件あります。接続可能な週に優先して検証します。"));
+    notes.appendChild(r);
+  }
+
+  /* --- footer --- */
+  var foot = document.getElementById("foot");
+  foot.appendChild(document.createTextNode("毎週水曜 12:00 JST 更新。過去分は "));
+  var link = el("a", null, "GitHub のアーカイブ");
+  link.href = d.archive_url || "https://github.com/ymnucsnb-hash/ymnucsnb1975/tree/main/docs/luna-ultra";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  foot.appendChild(link);
+  foot.appendChild(document.createTextNode(
+    " に保存されます。掲載内容は公開情報の要約で、動作を保証するものではありません。"
+  ));
+})();
+</script>
